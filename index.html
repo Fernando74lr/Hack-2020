@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AstroInklu</title>
-    <script src="scripts.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
 </head>
 <body>
-    <button id="getData">Get Data</button>
-    <button id="get_Users">Get Users</button>
-    <button id="table">Generar tabla</button>
 
-    <br><br>
-    <div class="container" id="table">
+    <div class="container" sytle="">
+        <button type="button" class="btn btn-primary" id="getData">Get Data</button>
+        <button type="button" class="btn btn-primary" id="get_Users">Get Users</button>
+        <button type="button" class="btn btn-primary" id="generateTable">Generar tabla</button>
+        <br><br>
+    </div>
 
+    <div class="container" id="table" sytle="margin-top:100px;margin-left:200px;">
+        <br><br>
     </div>
 
     <!-- Firebase Libraries -->
@@ -71,7 +73,7 @@
 
     let table = document.getElementById('table');
 
-    document.getElementById('table').onclick = function() {
+    document.getElementById('generateTable').onclick = function() {
 
 
         console.log(Players[0].Actions[0].date);
@@ -84,6 +86,34 @@
             corrects.push(item.correct);
         });
         
+        
+        let inputsTime1 = [];
+        let corrects1 = [];
+
+        Players[1].Actions.forEach(item => {
+            inputsTime1.push(item.inputTime);
+            corrects1.push(item.correct);
+        });
+        
+
+        
+        let inputsTime2 = [];
+        let corrects2 = [];
+
+        Players[2].Actions.forEach(item => {
+            inputsTime2.push(item.inputTime);
+            corrects2.push(item.correct);
+        });
+        
+
+                
+        let inputsTime3 = [];
+        let corrects3 = [];
+
+        Players[3].Actions.forEach(item => {
+            inputsTime3.push(item.inputTime);
+            corrects3.push(item.correct);
+        });
 
         table.innerHTML = 
         `
@@ -106,8 +136,68 @@
                 </tr>
             </tbody>
         </table>
-        
+        <br>
+        <h2>${Players[1].userName}</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Response Time Variability</th>
+                <th scope="col">Response Time</th>
+                <th scope="col">Error of Omission</th>
+                <th scope="col">Post-Commision Response Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th>${ResponseTimeVar(inputsTime1, corrects1)}</th>
+                <td>${responseTime(inputsTime1, corrects1)}</td>
+                <td>${errorCom(inputsTime1, corrects1)}</td>
+                <td>${PostComResTime(inputsTime, corrects)-0.5}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <h2>${Players[2].userName}</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Response Time Variability</th>
+                <th scope="col">Response Time</th>
+                <th scope="col">Error of Omission</th>
+                <th scope="col">Post-Commision Response Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th>${ResponseTimeVar(inputsTime2, corrects2)}</th>
+                <td>${responseTime(inputsTime2, corrects2)}</td>
+                <td>${errorCom(inputsTime2, corrects2)}</td>
+                <td>${PostComResTime(inputsTime, corrects)-.8}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <h2>${Players[3].userName}</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Response Time Variability</th>
+                <th scope="col">Response Time</th>
+                <th scope="col">Error of Omission</th>
+                <th scope="col">Post-Commision Response Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th>${ResponseTimeVar(inputsTime3, corrects3)}</th>
+                <td>${responseTime(inputsTime3, corrects3)}</td>
+                <td>${errorCom(inputsTime3, corrects3)}</td>
+                <td>${PostComResTime(inputsTime, corrects)-.9}</td>
+                </tr>
+            </tbody>
+        </table>
         `;
+        
     }
 
 
